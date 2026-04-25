@@ -1,0 +1,10 @@
+---
+name: 'Pull Request'
+on:
+  pull_request:
+    branches: [ '**' ]
+  workflow_dispatch:
+jobs:
+  code_quality:
+    name: 'Code Quality'
+    uses: ./.github/workflows/code-quality.yaml

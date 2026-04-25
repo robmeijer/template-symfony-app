@@ -1,0 +1,100 @@
+{
+    "type": "project",
+    "license": "proprietary",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.5",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "doctrine/doctrine-bundle": "^3.2",
+        "doctrine/doctrine-migrations-bundle": "^4.0",
+        "doctrine/orm": "^3.6",
+        "symfony/asset": "8.0.*",
+        "symfony/asset-mapper": "8.0.*",
+        "symfony/console": "8.0.*",
+        "symfony/dotenv": "8.0.*",
+        "symfony/flex": "^2",
+        "symfony/framework-bundle": "8.0.*",
+        "symfony/monolog-bundle": "^4.0",
+        "symfony/runtime": "8.0.*",
+        "symfony/twig-bundle": "8.0.*",
+        "symfony/yaml": "8.0.*",
+        "symfonycasts/sass-bundle": "^0.9.0",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
+    },
+    "require-dev": {
+        "php-cs-fixer/shim": "^3.95",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-doctrine": "^2.0",
+        "phpstan/phpstan-symfony": "^2.0",
+        "phpunit/phpunit": "^13.1",
+        "rector/rector": "^2.4",
+        "symfony/debug-bundle": "8.0.*",
+        "symfony/maker-bundle": "^1.67",
+        "symfony/stopwatch": "8.0.*",
+        "symfony/web-profiler-bundle": "8.0.*"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        },
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*",
+        "symfony/polyfill-php82": "*",
+        "symfony/polyfill-php83": "*",
+        "symfony/polyfill-php84": "*"
+    },
+    "scripts": {
+        "lint:dry-run": "@php-cs-fixer --dry-run",
+        "lint": "@php-cs-fixer",
+        "php-cs-fixer": "vendor/bin/php-cs-fixer fix --diff",
+        "phpstan": "vendor/bin/phpstan analyse --no-interaction",
+        "rector:dry-run": "@rector --dry-run",
+        "rector": "vendor/bin/rector process",
+        "test": "composer dump-autoload --optimize --strict-psr && XDEBUG_MODE=off bin/phpunit --no-coverage",
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "importmap:install": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "8.0.*"
+        }
+    }
+}

@@ -1,0 +1,35 @@
+---
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "ci(dependencies)"
+
+  - package-ecosystem: composer
+    directory: "/app"
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "chore(dependencies)"
+      prefix-development: "chore(dev-dependencies)"
+    allow:
+      - dependency-name: "symfony/*"
+        dependency-type: all
+    ignore:
+      - dependency-name: "symfony/*"
+        update-types: [ "version-update:semver-major", "version-update:semver-minor" ]
+    groups:
+      code-quality:
+        patterns:
+          - "php-cs-fixer/*"
+          - "phpstan/*"
+          - "rector/*"
+      symfony:
+        patterns:
+          - "symfony/*"
+      twig:
+        patterns:
+          - "twig/*"

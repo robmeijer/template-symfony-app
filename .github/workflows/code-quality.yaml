@@ -1,0 +1,107 @@
+---
+on:
+  workflow_call:
+jobs:
+  lint:
+    name: 'Lint'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Check out code'
+        uses: actions/checkout@v6
+
+      - name: 'Set up PHP'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+
+      - name: 'Cache Composer dependencies'
+        uses: actions/cache@v5
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+      - name: 'Install dependencies'
+        uses: php-actions/composer@v6
+        with:
+          working_dir: app/
+
+      - name: 'Run PHP-CS-Fixer'
+        run: composer lint:dry-run --working-dir=app/
+
+  phpstan:
+    name: 'PHPStan'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Check out code'
+        uses: actions/checkout@v6
+
+      - name: 'Set up PHP'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+
+      - name: 'Cache Composer dependencies'
+        uses: actions/cache@v5
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+      - name: 'Install dependencies'
+        uses: php-actions/composer@v6
+        with:
+          working_dir: app/
+
+      - name: 'Run PHPStan'
+        run: composer phpstan --working-dir=app/
+
+  phpunit:
+    name: 'PHPUnit'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Check out code'
+        uses: actions/checkout@v6
+
+      - name: 'Set up PHP'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+
+      - name: 'Cache Composer dependencies'
+        uses: actions/cache@v5
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+      - name: 'Install dependencies'
+        uses: php-actions/composer@v6
+        with:
+          working_dir: app/
+
+      - name: 'Run PHPUnit'
+        run: composer test --working-dir=app/
+
+  rector:
+    name: 'Rector'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Check out code'
+        uses: actions/checkout@v6
+
+      - name: 'Set up PHP'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+
+      - name: 'Cache Composer dependencies'
+        uses: actions/cache@v5
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+      - name: 'Install dependencies'
+        uses: php-actions/composer@v6
+        with:
+          working_dir: app/
+
+      - name: 'Run Rector'
+        run: composer rector:dry-run --working-dir=app/

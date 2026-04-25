@@ -1,0 +1,43 @@
+services:
+    app:
+        build:
+            args:
+                LOCAL_USER_ID: ${LOCAL_USER_ID:-1000}
+                LOCAL_GROUP_ID: ${LOCAL_GROUP_ID:-1000}
+                XDEBUG_MODE: ${XDEBUG_MODE:-off}
+        depends_on:
+            database:
+                condition: service_healthy
+        environment:
+            DATABASE_URL: "postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-!ChangeMe!}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-18}&charset=utf8"
+        extra_hosts: [ host.docker.internal:host-gateway ]
+        tty: true
+        volumes: [ "./app:/var/www/html" ]
+
+    database:
+        image: postgres:${POSTGRES_VERSION:-18}
+        environment:
+            POSTGRES_DB: ${POSTGRES_DB:-app}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
+            POSTGRES_USER: ${POSTGRES_USER:-app}
+        healthcheck:
+            test: [ "CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}" ]
+            timeout: 5s
+            retries: 5
+            start_period: 60s
+        ports: [ "5432:5432" ]
+        volumes: [ "database_data:/var/lib/postgresql:rw" ]
+
+    styles:
+        image: ghcr.io/robmeijer/php:8.5-frankenphp
+        depends_on:
+            app:
+                condition: service_healthy
+        volumes: [ "./app:/var/www/html" ]
+        command: [ "bin/console", "sass:build", "--watch" ]
+        healthcheck:
+            test: [ ]
+            disable: true
+
+volumes:
+    database_data:
