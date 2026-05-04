@@ -75,7 +75,7 @@ docker compose exec app bin/console <command>
   bleeding-edge.
 - **PHP-CS-Fixer**: `@Symfony` ruleset with custom overrides (no Yoda comparisons, single-line PHPDocs, one space around
   `.`).
-- **Rector**: targets PHP 8.5, PHPUnit 12.0 attribute migration, type declarations. Cache in `var/rector/`.
+- **Rector**: targets PHP 8.5, PHPUnit 13.1 attribute migration, type declarations. Cache in `var/rector/`.
 - **PHPUnit**: PHPUnit unit tests. Cache in `/var/phpunit`.
 - **CI** (`.github/workflows/code-quality.yaml`) runs on every PR and on `main`: Rector dry-run, PHP-CS-Fixer dry-run,
   PHPStan, and PHPUnit.
