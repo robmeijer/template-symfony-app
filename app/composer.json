@@ -80,6 +80,12 @@
         "rector:dry-run": "@rector --dry-run",
         "rector": "vendor/bin/rector process",
         "test": "composer dump-autoload --optimize --strict-psr && XDEBUG_MODE=off bin/phpunit --no-coverage",
+        "code-quality": [
+            "@rector",
+            "@lint",
+            "@phpstan",
+            "@test"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd",
