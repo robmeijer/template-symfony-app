@@ -274,12 +274,12 @@
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "0.5",
-            "ref": "4812be2fc05dad51e05837779e9175321fb68d9f"
+            "version": "0.6",
+            "ref": "89c0e817b8256281c0a3623781525aec583ca3f4"
         },
         "files": [
-            "config/packages/symfonycasts_sass.yaml",
-            "assets/styles/app.scss"
+            "assets/styles/app.scss",
+            "config/packages/symfonycasts_sass.yaml"
         ]
     },
     "twig/extra-bundle": {
