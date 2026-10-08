@@ -36,6 +36,15 @@ The App stage, named `app` by default, contains the instructions necessary to bu
 The Local stage, named `local` by default, extends the `app` stage and only contains the instructions and overrides
 necessary for local development.
 
+## FrankenPHP worker mode
+
+[FrankenPHP worker mode](https://frankenphp.dev/docs/worker/) is enabled by default. It can be disabled by removing the
+following environment variable definitions from
+`docker/Dockerfile`:
+
+- `FRANKENPHP_CONFIG`
+- `FRANKENPHP_WORKER_CONFIG`
+
 ## Local Usage
 
 Follow these steps to get the Symfony app running locally.

@@ -4,7 +4,7 @@ FROM ghcr.io/robmeijer/php:8.5-frankenphp AS app
 ARG USER_ID=33
 ARG GROUP_ID=33
 
-ENV APP_ENV="prod" XDEBUG_MODE="off"
+ENV APP_ENV="prod" XDEBUG_MODE="off" FRANKENPHP_CONFIG="import worker.Caddyfile"
 
 COPY --link --chown=${USER_ID}:${GROUP_ID} app/composer.* app/symfony.lock ./
 
@@ -29,7 +29,7 @@ ARG LOCAL_USER_ID
 ARG LOCAL_GROUP_ID
 ARG XDEBUG_MODE
 
-ENV APP_ENV="dev" OPCACHE_VALIDATE_TIMESTAMPS="1" XDEBUG_MODE="${XDEBUG_MODE}"
+ENV APP_ENV="dev" OPCACHE_VALIDATE_TIMESTAMPS="1" XDEBUG_MODE="${XDEBUG_MODE}" FRANKENPHP_WORKER_CONFIG="watch ./**/*.{php,yaml,yml,twig,env,scss}"
 
 USER root
 
